@@ -3,10 +3,19 @@
 
 const gameState = {
   board: ["", "", "a", "", "", "", "", "", ""],
-  currentPlaer: "X",
+  currentPlayer: "X",
   winner: null,
   gameOver: false,
 };
+
+//player
+function createPlayer(symbol) {
+  selectedCells = [];
+  return { symbol, selectedCells };
+}
+
+playerX = createPlayer("X");
+playerO = createPlayer("O");
 
 //create divs for the gameboard
 
@@ -16,7 +25,11 @@ for (let i = 0; i < 9; i++) {
   const boardCell = document.createElement("div");
   boardCell.setAttribute("id", i);
   boardCell.addEventListener("click", function (e) {
-    e.target.style.backgroundColor = "blue";
+    const symbol = document.createElement("h1");
+    symbol.innerText = playerO.symbol;
+    e.target.appendChild(symbol);
   });
   gameBoard.appendChild(boardCell);
 }
+
+//function for adding a symbol
