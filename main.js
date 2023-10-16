@@ -15,7 +15,6 @@ const gameState = {
   winner: null,
   gameOver: false,
 };
-
 //create divs for the gameboard
 
 for (let i = 0; i < 9; i++) {
@@ -39,6 +38,8 @@ function addSymbol(index) {
   gameState.board[index] = gameState.currentPlayer.symbol;
   gameState.currentPlayer.selectedCells.push(index);
 
+  checkWinner();
+
   if (gameState.currentPlayer === playerX) {
     gameState.currentPlayer = playerO;
   } else {
@@ -46,8 +47,6 @@ function addSymbol(index) {
   }
 
   //check if this function works
-  console.log(gameState.board);
-  console.log(gameState.currentPlayer);
 }
 
 function checkWinner() {
@@ -61,4 +60,15 @@ function checkWinner() {
     [0, 4, 8],
     [2, 4, 6],
   ];
+  for (i = 0; i < winStates.length; i++) {
+    const winState = winStates[i];
+    if (
+      gameState.currentPlayer.symbol === gameState.board[winState[0]] &&
+      gameState.board[winState[0]] === gameState.board[winState[1]] &&
+      gameState.board[winState[1]] === gameState.board[winState[2]]
+    ) {
+      gameState.winner = gameState.currentPlayer;
+      console.log(gameState.winner);
+    }
+  }
 }
