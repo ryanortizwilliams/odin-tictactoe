@@ -1,6 +1,3 @@
-// TODO:
-
-//player
 function createPlayer(symbol, name) {
   selectedCells = [];
   return { symbol, name, selectedCells };
@@ -9,7 +6,7 @@ const playerX = createPlayer("X", "Ryan");
 const playerO = createPlayer("O", "Trang");
 
 // Create a function to create and display the player objects
-function setupScoreboard() {
+function updateScoreboard() {
   //DOM ELEMENTS
   const playerOne = document.getElementById("player1");
   const playerTwo = document.getElementById("player2");
@@ -18,7 +15,7 @@ function setupScoreboard() {
   playerTwo.textContent = playerO.name;
 }
 
-setupScoreboard();
+updateScoreboard();
 function playGame() {
   const gameState = {
     board: ["", "", "", "", "", "", "", "", ""],
@@ -45,7 +42,7 @@ function playGame() {
           this.board[winState[1]] === this.board[winState[2]]
         ) {
           this.winner = this.currentPlayer;
-          alert(`${this.currentPlayer.symbol} is the winner!`);
+          console.log(`${this.currentPlayer.symbol} is the winner!`);
         }
       }
     },
@@ -61,22 +58,23 @@ function playGame() {
       }
     },
   };
-
   //create divs for the gameboard
 
-  for (let i = 0; i < 9; i++) {
+  function createGameboard() {
     const gameBoard = document.querySelector(".game-board");
-
-    const boardCell = document.createElement("div");
-    boardCell.addEventListener("click", function (e) {
-      if (!boardCell.firstChild) {
-        const symbol = document.createElement("h1");
-        symbol.innerText = gameState.currentPlayer.symbol;
-        e.target.appendChild(symbol);
-        addSymbol(i);
-      }
-    });
-    gameBoard.appendChild(boardCell);
+    gameBoard.innerHTML = "";
+    for (let i = 0; i < 9; i++) {
+      const boardCell = document.createElement("div");
+      boardCell.addEventListener("click", function (e) {
+        if (!boardCell.firstChild) {
+          const symbol = document.createElement("h1");
+          symbol.innerText = gameState.currentPlayer.symbol;
+          e.target.appendChild(symbol);
+          addSymbol(i);
+        }
+      });
+      gameBoard.appendChild(boardCell);
+    }
   }
 
   function addSymbol(index) {
@@ -91,6 +89,9 @@ function playGame() {
       gameState.currentPlayer = playerX;
     }
   }
+  createGameboard();
+  const resetButton = document.getElementById("reset");
+  resetButton.addEventListener("click", playGame);
 }
 
 playGame();
