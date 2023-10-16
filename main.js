@@ -22,12 +22,13 @@ for (let i = 0; i < 9; i++) {
   const gameBoard = document.querySelector(".game-board");
 
   const boardCell = document.createElement("div");
-  boardCell.setAttribute("id", i);
   boardCell.addEventListener("click", function (e) {
-    const symbol = document.createElement("h1");
-    symbol.innerText = gameState.currentPlayer.symbol;
-    e.target.appendChild(symbol);
-    addSymbol(i);
+    if (!boardCell.firstChild) {
+      const symbol = document.createElement("h1");
+      symbol.innerText = gameState.currentPlayer.symbol;
+      e.target.appendChild(symbol);
+      addSymbol(i);
+    }
   });
   gameBoard.appendChild(boardCell);
 }
@@ -47,4 +48,17 @@ function addSymbol(index) {
   //check if this function works
   console.log(gameState.board);
   console.log(gameState.currentPlayer);
+}
+
+function checkWinner() {
+  const winStates = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
 }
