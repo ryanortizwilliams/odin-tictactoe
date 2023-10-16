@@ -1,18 +1,31 @@
 // TODO:
 
 //player
-function createPlayer(symbol) {
+function createPlayer(symbol, name) {
   selectedCells = [];
-  return { symbol, selectedCells };
+  return { symbol, name, selectedCells };
 }
-const playerX = createPlayer("X");
-const playerO = createPlayer("O");
+const playerX = createPlayer("X", "Ryan");
+const playerO = createPlayer("O", "Trang");
+
+// Create a function to create and display the player objects
+function setupScoreboard() {
+  //DOM ELEMENTS
+  const playerOne = document.getElementById("player1");
+  const playerTwo = document.getElementById("player2");
+
+  playerOne.textContent = playerX.name;
+  playerTwo.textContent = playerO.name;
+}
+
+setupScoreboard();
 function playGame() {
   const gameState = {
     board: ["", "", "", "", "", "", "", "", ""],
     currentPlayer: playerX,
     winner: null,
     gameOver: false,
+    round: 1,
     winStates: [
       [0, 1, 2],
       [3, 4, 5],
@@ -34,6 +47,17 @@ function playGame() {
           this.winner = this.currentPlayer;
           alert(`${this.currentPlayer.symbol} is the winner!`);
         }
+      }
+    },
+    reset: function () {
+      this.board = ["", "", "", "", "", "", "", "", ""];
+      this.currentPlayer = playerX;
+      this.winner = null;
+      this.gameOver = false;
+      if (!this.gameOver) {
+        this.round++;
+      } else {
+        this.round = 1;
       }
     },
   };
