@@ -1,3 +1,5 @@
+//TODO: Create a process to input one or two usernames. Also have a space to choose vs computer or vs human.
+
 function createPlayer(symbol, name) {
   selectedCells = [];
   return { symbol, name, selectedCells };
@@ -5,14 +7,33 @@ function createPlayer(symbol, name) {
 const playerX = createPlayer("X", "Ryan");
 const playerO = createPlayer("O", "Trang");
 
+function toggleModal() {
+  //make modal disapear after submit
+  const modal = document.querySelector(".modal");
+  modal.classList.toggle("hidden");
+}
+
+//form behavior
+const settingsForm = document.getElementById("modal-form");
+settingsForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const playerOne = formData.get("playerOne");
+  const playerTwo = formData.get("playerTwo") || "computer";
+  //just print for now
+  console.log(playerOne);
+  console.log(playerTwo);
+  toggleModal();
+});
+
 // Create a function to create and display the player objects
 function updateScoreboard() {
   //DOM ELEMENTS
   const playerOne = document.getElementById("player1");
   const playerTwo = document.getElementById("player2");
 
-  playerOne.textContent = playerX.name;
-  playerTwo.textContent = playerO.name;
+  playerOne.textContent = playerX.name || "test";
+  playerTwo.textContent = playerO.name || "test";
 }
 
 updateScoreboard();

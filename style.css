@@ -54,3 +54,7 @@ body {
   border: 5px solid;
   border-radius: 8px;
 }
+
+.hidden {
+  display: none;
+}
