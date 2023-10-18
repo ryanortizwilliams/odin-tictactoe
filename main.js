@@ -1,43 +1,34 @@
-//TODO: Create a process to input one or two usernames. Also have a space to choose vs computer or vs human.
-
 function createPlayer(symbol, name) {
   selectedCells = [];
   return { symbol, name, selectedCells };
 }
-const playerX = createPlayer("X", "Ryan");
-const playerO = createPlayer("O", "Trang");
 
 function toggleModal() {
   //make modal disapear after submit
   const modal = document.querySelector(".modal");
   modal.classList.toggle("hidden");
 }
+// TODO: Send info from Modal to the update scoreboard section
+// Modal form behavior
 
-//form behavior
 const settingsForm = document.getElementById("modal-form");
 settingsForm.addEventListener("submit", function (e) {
   e.preventDefault();
   const formData = new FormData(e.target);
   const playerOne = formData.get("playerOne");
-  const playerTwo = formData.get("playerTwo") || "computer";
+  const playerTwo = formData.get("playerTwo");
   //just print for now
   console.log(playerOne);
   console.log(playerTwo);
+
+  //create new players
+  const playerX = createPlayer("X", playerOne);
+  const playerO = createPlayer("O", playerTwo);
   toggleModal();
+  playGame(playerX, playerO);
 });
 
-// Create a function to create and display the player objects
-function updateScoreboard() {
-  //DOM ELEMENTS
-  const playerOne = document.getElementById("player1");
-  const playerTwo = document.getElementById("player2");
-
-  playerOne.textContent = playerX.name || "test";
-  playerTwo.textContent = playerO.name || "test";
-}
-
-updateScoreboard();
-function playGame() {
+function playGame(playerX, playerO) {
   const gameState = {
     board: ["", "", "", "", "", "", "", "", ""],
     currentPlayer: playerX,
@@ -63,7 +54,7 @@ function playGame() {
           this.board[winState[1]] === this.board[winState[2]]
         ) {
           this.winner = this.currentPlayer;
-          console.log(`${this.currentPlayer.symbol} is the winner!`);
+          console.log(`${this.currentPlayer.name} is the winner!`);
         }
       }
     },
@@ -79,7 +70,15 @@ function playGame() {
       }
     },
   };
-  //create divs for the gameboard
+
+  function updateScoreboard(playerX, playerO) {
+    //DOM ELEMENTS
+    const playerOne = document.getElementById("player1");
+    const playerTwo = document.getElementById("player2");
+
+    playerOne.textContent = playerX.name;
+    playerTwo.textContent = playerO.name;
+  }
 
   function createGameboard() {
     const gameBoard = document.querySelector(".game-board");
@@ -110,9 +109,10 @@ function playGame() {
       gameState.currentPlayer = playerX;
     }
   }
+  updateScoreboard(playerX, playerO);
   createGameboard();
+
+  //reset behaviour
   const resetButton = document.getElementById("reset");
   resetButton.addEventListener("click", playGame);
 }
-
-playGame();
