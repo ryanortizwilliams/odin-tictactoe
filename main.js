@@ -4,13 +4,16 @@ function createPlayer(symbol, name) {
   return { symbol, name, selectedCells, score };
 }
 
-function toggleModal(selector) {
+function showModal(selector) {
   //make modal disapear after submit
-  const modals = document.querySelectorAll(selector);
+  const modal = document.querySelector(selector);
+  modal.classList.remove("hidden");
+}
 
-  modals.forEach((modal) => {
-    modal.classList.toggle("hidden");
-  });
+function hideModal(selector) {
+  //make modal disapear after submit
+  const modal = document.querySelector(selector);
+  modal.classList.add("hidden");
 }
 
 // Modal form behavior
@@ -25,7 +28,7 @@ settingsForm.addEventListener("submit", function (e) {
   //create new players
   const playerX = createPlayer("X", playerOne);
   const playerO = createPlayer("O", playerTwo);
-  toggleModal("#start-modal");
+  hideModal("#start-modal");
   playGame(playerX, playerO);
   settingsForm.reset();
 });
@@ -61,7 +64,7 @@ function playGame(playerX, playerO) {
           const message = document.createElement("h1");
           message.textContent = `${this.winner.name} is the winner!`;
           winnerText.replaceChildren(message);
-          toggleModal("#winner-modal");
+          showModal("#winner-modal");
         }
       }
     },
@@ -121,5 +124,9 @@ function playGame(playerX, playerO) {
 
   //reset behaviour
   const resetButton = document.getElementById("reset");
-  resetButton.addEventListener("click", toggleModal.bind(null, ".modal"));
+  resetButton.addEventListener("click", function (e) {
+    e.preventDefault();
+    hideModal("#winner-modal");
+    showModal("#start-modal");
+  });
 }
