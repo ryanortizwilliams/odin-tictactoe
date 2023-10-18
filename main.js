@@ -36,6 +36,7 @@ settingsForm.addEventListener("submit", function (e) {
 function playGame(playerX, playerO) {
   const gameState = {
     board: ["", "", "", "", "", "", "", "", ""],
+    legalMovesAvailable: 9,
     currentPlayer: playerX,
     winner: null,
     gameOver: false,
@@ -58,8 +59,8 @@ function playGame(playerX, playerO) {
           this.board[winState[0]] === this.board[winState[1]] &&
           this.board[winState[1]] === this.board[winState[2]]
         ) {
+          // Win Condition Met
           this.winner = this.currentPlayer;
-          //create element for winner modal
           const winnerText = document.getElementById("winner-text");
           const message = document.createElement("h1");
           message.textContent = `${this.winner.name} is the winner!`;
@@ -67,11 +68,19 @@ function playGame(playerX, playerO) {
           showModal("#winner-modal");
           this.winner.score++;
           updateScoreboard(playerX, playerO);
+        } else if (this.legalMovesAvailable === 0) {
+          const winnerText = document.getElementById("winner-text");
+          const message = document.createElement("h1");
+          message.textContent = "It's a draw!";
+          winnerText.replaceChildren(message);
+          showModal("#winner-modal");
         }
+        //TODO: draw condition
       }
     },
     reset: function () {
       this.board = ["", "", "", "", "", "", "", "", ""];
+      this.legalMovesAvailable = 9;
       this.currentPlayer = playerX;
       this.winner = null;
       this.gameOver = false;
@@ -116,7 +125,7 @@ function playGame(playerX, playerO) {
   function addSymbol(index) {
     gameState.board[index] = gameState.currentPlayer.symbol;
     gameState.currentPlayer.selectedCells.push(index);
-
+    gameState.legalMovesAvailable--;
     gameState.checkWinner();
 
     if (gameState.currentPlayer === playerX) {
@@ -136,9 +145,7 @@ function playGame(playerX, playerO) {
     showModal("#start-modal");
   });
 
-  //continue behavior
-
-  //TODO: Reset the board without disturbing the players name and score count.
+  //continue behaviors
   function continueGame() {
     gameState.reset();
     createGameboard();
