@@ -139,4 +139,12 @@ function playGame(playerX, playerO) {
   //continue behavior
 
   //TODO: Reset the board without disturbing the players name and score count.
+  function continueGame() {
+    gameState.reset();
+    createGameboard();
+    hideModal("#winner-modal");
+  }
+
+  const continueButton = document.getElementById("continue");
+  continueButton.addEventListener("click", continueGame);
 }
