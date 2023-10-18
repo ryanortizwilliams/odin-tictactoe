@@ -1,12 +1,16 @@
 function createPlayer(symbol, name) {
   selectedCells = [];
-  return { symbol, name, selectedCells };
+  score = 0;
+  return { symbol, name, selectedCells, score };
 }
 
 function toggleModal(selector) {
   //make modal disapear after submit
-  const modal = document.querySelector(selector);
-  modal.classList.toggle("hidden");
+  const modals = document.querySelectorAll(selector);
+
+  modals.forEach((modal) => {
+    modal.classList.toggle("hidden");
+  });
 }
 
 // Modal form behavior
@@ -17,15 +21,13 @@ settingsForm.addEventListener("submit", function (e) {
   const formData = new FormData(e.target);
   const playerOne = formData.get("playerOne");
   const playerTwo = formData.get("playerTwo");
-  //just print for now
-  console.log(playerOne);
-  console.log(playerTwo);
 
   //create new players
   const playerX = createPlayer("X", playerOne);
   const playerO = createPlayer("O", playerTwo);
   toggleModal("#start-modal");
   playGame(playerX, playerO);
+  settingsForm.reset();
 });
 
 function playGame(playerX, playerO) {
@@ -59,7 +61,7 @@ function playGame(playerX, playerO) {
           //create element for modal text
           const winnerText = document.createElement("h1");
           winnerText.textContent = `${this.winner.name} is the winner!`;
-          winnerModal.appendChild(winnerText);
+          winnerModal.replaceChildren(winnerText);
           winnerModal.classList.toggle("hidden");
         }
       }
@@ -120,5 +122,5 @@ function playGame(playerX, playerO) {
 
   //reset behaviour
   const resetButton = document.getElementById("reset");
-  resetButton.addEventListener("click", playGame);
+  resetButton.addEventListener("click", toggleModal.bind(null, ".modal"));
 }

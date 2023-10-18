@@ -45,7 +45,6 @@ body {
 }
 
 .modal {
-  z-index: 1;
   position: absolute;
   margin: 10%;
   height: 30%;
@@ -59,6 +58,13 @@ body {
   align-items: center;
 }
 
+#start-modal {
+  z-index: 2;
+}
+
+#winner-modal {
+  z-index: 1;
+}
 #modal-form {
   display: flex;
   flex-direction: column;
