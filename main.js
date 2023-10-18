@@ -3,12 +3,12 @@ function createPlayer(symbol, name) {
   return { symbol, name, selectedCells };
 }
 
-function toggleModal() {
+function toggleModal(selector) {
   //make modal disapear after submit
-  const modal = document.querySelector(".modal");
+  const modal = document.querySelector(selector);
   modal.classList.toggle("hidden");
 }
-// TODO: Send info from Modal to the update scoreboard section
+
 // Modal form behavior
 
 const settingsForm = document.getElementById("modal-form");
@@ -24,7 +24,7 @@ settingsForm.addEventListener("submit", function (e) {
   //create new players
   const playerX = createPlayer("X", playerOne);
   const playerO = createPlayer("O", playerTwo);
-  toggleModal();
+  toggleModal("#start-modal");
   playGame(playerX, playerO);
 });
 
@@ -54,7 +54,13 @@ function playGame(playerX, playerO) {
           this.board[winState[1]] === this.board[winState[2]]
         ) {
           this.winner = this.currentPlayer;
-          console.log(`${this.currentPlayer.name} is the winner!`);
+          //create element for winner modal
+          const winnerModal = document.getElementById("winner-modal");
+          //create element for modal text
+          const winnerText = document.createElement("h1");
+          winnerText.textContent = `${this.winner.name} is the winner!`;
+          winnerModal.appendChild(winnerText);
+          winnerModal.classList.toggle("hidden");
         }
       }
     },
