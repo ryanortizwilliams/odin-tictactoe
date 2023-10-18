@@ -65,6 +65,8 @@ function playGame(playerX, playerO) {
           message.textContent = `${this.winner.name} is the winner!`;
           winnerText.replaceChildren(message);
           showModal("#winner-modal");
+          this.winner.score++;
+          updateScoreboard(playerX, playerO);
         }
       }
     },
@@ -84,10 +86,14 @@ function playGame(playerX, playerO) {
   function updateScoreboard(playerX, playerO) {
     //DOM ELEMENTS
     const playerOne = document.getElementById("player1");
+    const scoreOne = document.getElementById("score1");
     const playerTwo = document.getElementById("player2");
+    const scoreTwo = document.getElementById("score2");
 
     playerOne.textContent = playerX.name;
+    scoreOne.textContent = playerX.score;
     playerTwo.textContent = playerO.name;
+    scoreTwo.textContent = playerO.score;
   }
 
   function createGameboard() {
@@ -129,4 +135,8 @@ function playGame(playerX, playerO) {
     hideModal("#winner-modal");
     showModal("#start-modal");
   });
+
+  //continue behavior
+
+  //TODO: Reset the board without disturbing the players name and score count.
 }
