@@ -23,7 +23,9 @@ body {
 }
 
 .score-board div {
-  background-color: beige;
+  background-color: white;
+  border: 2px solid;
+  padding: 10px;
   margin: 0 10%;
 }
 
