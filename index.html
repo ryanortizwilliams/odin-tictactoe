@@ -16,9 +16,9 @@
     <div class="game-board"></div>
 
     <div class="score-board">
-      <div id="reset"><button>New Game</button></div>
+      <!-- <div id="reset"><button>New Game</button></div>
       <div id="winner"></div>
-      <div id="continue"><button>Next Round</button></div>
+      <div id="continue"><button>Next Round</button></div> -->
     </div>
 
     <div class="modal" id="start-modal">
@@ -38,7 +38,13 @@
       </form>
     </div>
 
-    <div class="modal hidden" id="winner-modal"></div>
+    <div class="modal hidden" id="winner-modal">
+      <div id="winner-text"></div>
+      <div class="modal-buttons">
+        <button id="reset">Reset</button>
+        <button id="continue">Continue</button>
+      </div>
+    </div>
     <script src="main.js"></script>
   </body>
 </html>

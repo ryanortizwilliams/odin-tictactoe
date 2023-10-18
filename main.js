@@ -57,12 +57,11 @@ function playGame(playerX, playerO) {
         ) {
           this.winner = this.currentPlayer;
           //create element for winner modal
-          const winnerModal = document.getElementById("winner-modal");
-          //create element for modal text
-          const winnerText = document.createElement("h1");
-          winnerText.textContent = `${this.winner.name} is the winner!`;
-          winnerModal.replaceChildren(winnerText);
-          winnerModal.classList.toggle("hidden");
+          const winnerText = document.getElementById("winner-text");
+          const message = document.createElement("h1");
+          message.textContent = `${this.winner.name} is the winner!`;
+          winnerText.replaceChildren(message);
+          toggleModal("#winner-modal");
         }
       }
     },
