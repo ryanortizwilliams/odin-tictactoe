@@ -21,7 +21,7 @@ settingsForm.addEventListener("submit", function (e) {
   e.preventDefault();
   const formData = new FormData(e.target);
   const playerOne = formData.get("playerOne");
-  const playerTwo = formData.get("playerTwo");
+  const playerTwo = formData.get("playerTwo") || "Computer";
 
   //create new players
   const playerX = createPlayer("X", playerOne);
