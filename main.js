@@ -5,13 +5,11 @@ function createPlayer(symbol, name) {
 }
 
 function showModal(selector) {
-  //make modal disapear after submit
   const modal = document.querySelector(selector);
   modal.classList.remove("hidden");
 }
 
 function hideModal(selector) {
-  //make modal disapear after submit
   const modal = document.querySelector(selector);
   modal.classList.add("hidden");
 }
@@ -52,7 +50,6 @@ function playGame(playerX, playerO) {
       [2, 4, 6],
     ],
     checkWinner: function () {
-      //TODO: Fix Win/Draw Detection
       for (i = 0; i < this.winStates.length; i++) {
         const winState = this.winStates[i];
         if (
@@ -69,14 +66,15 @@ function playGame(playerX, playerO) {
           showModal("#winner-modal");
           this.winner.score++;
           updateScoreboard(playerX, playerO);
+          break;
         } else if (this.legalMovesAvailable === 0) {
+          // Draw Condition Met
           const winnerText = document.getElementById("winner-text");
           const message = document.createElement("h1");
           message.textContent = "It's a draw!";
           winnerText.replaceChildren(message);
           showModal("#winner-modal");
         }
-        //TODO: draw condition
       }
     },
     reset: function () {
@@ -99,7 +97,7 @@ function playGame(playerX, playerO) {
     const scoreOne = document.getElementById("score1");
     const playerTwo = document.getElementById("player2");
     const scoreTwo = document.getElementById("score2");
-
+    // Add info to Scoreboard
     playerOne.textContent = playerX.name;
     scoreOne.textContent = playerX.score;
     playerTwo.textContent = playerO.name;
