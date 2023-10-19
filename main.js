@@ -52,6 +52,7 @@ function playGame(playerX, playerO) {
       [2, 4, 6],
     ],
     checkWinner: function () {
+      //TODO: Fix Win/Draw Detection
       for (i = 0; i < this.winStates.length; i++) {
         const winState = this.winStates[i];
         if (
